@@ -21,6 +21,7 @@ class Login : BaseActivity() {
         init()
         newUser.setOnClickListener(View.OnClickListener {
             startActivity(Intent(this,Registration::class.java))
+            finish()
         })
         btnsignIn.setOnClickListener(View.OnClickListener {
             progress!!.showSweetDialog()
@@ -45,11 +46,13 @@ class Login : BaseActivity() {
             progress!!.dismissSweet()
             password.setError(getString(R.string.password_length_error))
         }else{
+
             auth.signInWithEmailAndPassword(email.text.toString(),password.text.toString()).addOnCompleteListener(
                 OnCompleteListener {
                     if(it.isSuccessful){
                         progress!!.dismissSweet()
                         startActivity(Intent(this@Login,MainActivity::class.java))
+                        finish()
                     }else{
                         progress!!.dismissSweet()
                         Toast.makeText(this@Login,"some thing went wrong",Toast.LENGTH_LONG).show()
